@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "skills": [
+    {
+      "id": "unique-skill-id",
+      "name": "Skill Name",
+      "description": "Präzise Beschreibung, was der Skill tut.",
+      "entrypoint": "./library/skill_name_a/tool.py",
+      "dependencies": {
+        "python_packages": ["requests"],
+        "system_commands": []
+      },
+      "adapters": {
+        "claude": {
+          "invocation_style": "slash_command",
+          "command": "/skill-name"
+        },
+        "google": {
+          "invocation_style": "function_calling"
+        }
+      }
+    }
+  ]
+}
+
