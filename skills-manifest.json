@@ -8,7 +8,9 @@
       "description": "Präzise Beschreibung, was der Skill tut.",
       "entrypoint": "./library/skill_name_a/tool.py",
       "dependencies": {
-        "python_packages": ["requests"],
+        "python_packages": [
+          "requests"
+        ],
         "system_commands": []
       },
       "adapters": {
@@ -20,7 +22,272 @@
           "invocation_style": "function_calling"
         }
       }
+    },
+    {
+      "id": "agent-skill-ui-ux-pro-max",
+      "name": "Ui Ux Pro Max",
+      "description": "UI/UX design intelligence for web and mobile. Includes 50+ styles, 161 color palettes, 57 font pairings, 161 product types, 99 UX guidelines, and 25 chart types across 10 stacks (React, Next.js, Vue, Svelte, SwiftUI, React Native, Flutter, Tailwind, shadcn/ui, and HTML/CSS). Actions: plan, build, create, design, implement, review, fix, improve, optimize, enhance, refactor, and check UI/UX code. Projects: website, landing page, dashboard, admin panel, e-commerce, SaaS, portfolio, blog, and mobile app. Elements: button, modal, navbar, sidebar, card, table, form, and chart. Styles: glassmorphism, claymorphism, minimalism, brutalism, neumorphism, bento grid, dark mode, responsive, skeuomorphism, and flat design. Topics: color systems, accessibility, animation, layout, typography, font pairing, spacing, interaction states, shadow, and gradient. Integrations: shadcn/ui MCP for component search and examples.",
+      "entrypoint": "./library/ui-ux-pro-max/SKILL.md",
+      "dependencies": {
+        "python_packages": [],
+        "system_commands": []
+      },
+      "adapters": {
+        "claude": {
+          "invocation_style": "slash_command",
+          "command": "/ui-ux-pro-max"
+        },
+        "google": {
+          "invocation_style": "function_calling"
+        }
+      }
+    },
+    {
+      "id": "agent-skill-defuddle",
+      "name": "Defuddle",
+      "description": "Extract clean markdown content from web pages using Defuddle CLI, removing clutter and navigation to save tokens. Use instead of WebFetch when the user provides a URL to read or analyze, for online documentation, articles, blog posts, or any standard web page. Do NOT use for URLs ending in .md — those are already markdown, use WebFetch directly.",
+      "entrypoint": "./library/defuddle/SKILL.md",
+      "dependencies": {
+        "python_packages": [],
+        "system_commands": []
+      },
+      "adapters": {
+        "claude": {
+          "invocation_style": "slash_command",
+          "command": "/defuddle"
+        },
+        "google": {
+          "invocation_style": "function_calling"
+        }
+      }
+    },
+    {
+      "id": "agent-skill-ckm-design",
+      "name": "Ckm Design",
+      "description": "Comprehensive design skill: brand identity, design tokens, UI styling, logo generation (55 styles, Gemini AI), corporate identity program (50 deliverables, CIP mockups), HTML presentations (Chart.js), banner design (22 styles, social/ads/web/print), icon design (15 styles, SVG, Gemini 3.1 Pro), social photos (HTML→screenshot, multi-platform). Actions: design logo, create CIP, generate mockups, build slides, design banner, generate icon, create social photos, social media images, brand identity, design system. Platforms: Facebook, Twitter, LinkedIn, YouTube, Instagram, Pinterest, TikTok, Threads, Google Ads.",
+      "entrypoint": "./library/ckm-design/SKILL.md",
+      "dependencies": {
+        "python_packages": [],
+        "system_commands": []
+      },
+      "adapters": {
+        "claude": {
+          "invocation_style": "slash_command",
+          "command": "/ckm-design"
+        },
+        "google": {
+          "invocation_style": "function_calling"
+        }
+      }
+    },
+    {
+      "id": "agent-skill-ckm-brand",
+      "name": "Ckm Brand",
+      "description": "Brand voice, visual identity, messaging frameworks, asset management, brand consistency. Activate for branded content, tone of voice, marketing assets, brand compliance, style guides.",
+      "entrypoint": "./library/ckm-brand/SKILL.md",
+      "dependencies": {
+        "python_packages": [],
+        "system_commands": []
+      },
+      "adapters": {
+        "claude": {
+          "invocation_style": "slash_command",
+          "command": "/ckm-brand"
+        },
+        "google": {
+          "invocation_style": "function_calling"
+        }
+      }
+    },
+    {
+      "id": "agent-skill-obsidian-markdown",
+      "name": "Obsidian Markdown",
+      "description": "Create and edit Obsidian Flavored Markdown with wikilinks, embeds, callouts, properties, and other Obsidian-specific syntax. Use when working with .md files in Obsidian, or when the user mentions wikilinks, callouts, frontmatter, tags, embeds, or Obsidian notes.",
+      "entrypoint": "./library/obsidian-markdown/SKILL.md",
+      "dependencies": {
+        "python_packages": [],
+        "system_commands": []
+      },
+      "adapters": {
+        "claude": {
+          "invocation_style": "slash_command",
+          "command": "/obsidian-markdown"
+        },
+        "google": {
+          "invocation_style": "function_calling"
+        }
+      }
+    },
+    {
+      "id": "agent-skill-ckm-slides",
+      "name": "Ckm Slides",
+      "description": "Create strategic HTML presentations with Chart.js, design tokens, responsive layouts, copywriting formulas, and contextual slide strategies.",
+      "entrypoint": "./library/ckm-slides/SKILL.md",
+      "dependencies": {
+        "python_packages": [],
+        "system_commands": []
+      },
+      "adapters": {
+        "claude": {
+          "invocation_style": "slash_command",
+          "command": "/ckm-slides"
+        },
+        "google": {
+          "invocation_style": "function_calling"
+        }
+      }
+    },
+    {
+      "id": "agent-skill-ckm-banner-design",
+      "name": "Ckm Banner Design",
+      "description": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage. Uses ui-ux-pro-max, frontend-design, ai-artist, ai-multimodal skills.",
+      "entrypoint": "./library/ckm-banner-design/SKILL.md",
+      "dependencies": {
+        "python_packages": [],
+        "system_commands": []
+      },
+      "adapters": {
+        "claude": {
+          "invocation_style": "slash_command",
+          "command": "/ckm-banner-design"
+        },
+        "google": {
+          "invocation_style": "function_calling"
+        }
+      }
+    },
+    {
+      "id": "agent-skill-find-skills",
+      "name": "Find Skills",
+      "description": "Helps users discover and install agent skills when they ask questions like \"how do I do X\", \"find a skill for X\", \"is there a skill that can...\", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill.",
+      "entrypoint": "./library/find-skills/SKILL.md",
+      "dependencies": {
+        "python_packages": [],
+        "system_commands": []
+      },
+      "adapters": {
+        "claude": {
+          "invocation_style": "slash_command",
+          "command": "/find-skills"
+        },
+        "google": {
+          "invocation_style": "function_calling"
+        }
+      }
+    },
+    {
+      "id": "agent-skill-obsidian-bases",
+      "name": "Obsidian Bases",
+      "description": "Create and edit Obsidian Bases (.base files) with views, filters, formulas, and summaries. Use when working with .base files, creating database-like views of notes, or when the user mentions Bases, table views, card views, filters, or formulas in Obsidian.",
+      "entrypoint": "./library/obsidian-bases/SKILL.md",
+      "dependencies": {
+        "python_packages": [],
+        "system_commands": []
+      },
+      "adapters": {
+        "claude": {
+          "invocation_style": "slash_command",
+          "command": "/obsidian-bases"
+        },
+        "google": {
+          "invocation_style": "function_calling"
+        }
+      }
+    },
+    {
+      "id": "agent-skill-ckm-ui-styling",
+      "name": "Ckm Ui Styling",
+      "description": "Create beautiful, accessible user interfaces with shadcn/ui components (built on Radix UI + Tailwind), Tailwind CSS utility-first styling, and canvas-based visual designs. Use when building user interfaces, implementing design systems, creating responsive layouts, adding accessible components (dialogs, dropdowns, forms, tables), customizing themes and colors, implementing dark mode, generating visual designs and posters, or establishing consistent styling patterns across applications.",
+      "entrypoint": "./library/ckm-ui-styling/SKILL.md",
+      "dependencies": {
+        "python_packages": [],
+        "system_commands": []
+      },
+      "adapters": {
+        "claude": {
+          "invocation_style": "slash_command",
+          "command": "/ckm-ui-styling"
+        },
+        "google": {
+          "invocation_style": "function_calling"
+        }
+      }
+    },
+    {
+      "id": "agent-skill-ckm-design-system",
+      "name": "Ckm Design System",
+      "description": "Token architecture, component specifications, and slide generation. Three-layer tokens (primitive→semantic→component), CSS variables, spacing/typography scales, component specs, strategic slide creation. Use for design tokens, systematic design, brand-compliant presentations.",
+      "entrypoint": "./library/ckm-design-system/SKILL.md",
+      "dependencies": {
+        "python_packages": [],
+        "system_commands": []
+      },
+      "adapters": {
+        "claude": {
+          "invocation_style": "slash_command",
+          "command": "/ckm-design-system"
+        },
+        "google": {
+          "invocation_style": "function_calling"
+        }
+      }
+    },
+    {
+      "id": "agent-skill-obsidian-cli",
+      "name": "Obsidian Cli",
+      "description": "Interact with Obsidian vaults using the Obsidian CLI to read, create, search, and manage notes, tasks, properties, and more. Also supports plugin and theme development with commands to reload plugins, run JavaScript, capture errors, take screenshots, and inspect the DOM. Use when the user asks to interact with their Obsidian vault, manage notes, search vault content, perform vault operations from the command line, or develop and debug Obsidian plugins and themes.",
+      "entrypoint": "./library/obsidian-cli/SKILL.md",
+      "dependencies": {
+        "python_packages": [],
+        "system_commands": []
+      },
+      "adapters": {
+        "claude": {
+          "invocation_style": "slash_command",
+          "command": "/obsidian-cli"
+        },
+        "google": {
+          "invocation_style": "function_calling"
+        }
+      }
+    },
+    {
+      "id": "agent-skill-json-canvas",
+      "name": "Json Canvas",
+      "description": "Create and edit JSON Canvas files (.canvas) with nodes, edges, groups, and connections. Use when working with .canvas files, creating visual canvases, mind maps, flowcharts, or when the user mentions Canvas files in Obsidian.",
+      "entrypoint": "./library/json-canvas/SKILL.md",
+      "dependencies": {
+        "python_packages": [],
+        "system_commands": []
+      },
+      "adapters": {
+        "claude": {
+          "invocation_style": "slash_command",
+          "command": "/json-canvas"
+        },
+        "google": {
+          "invocation_style": "function_calling"
+        }
+      }
+    },
+    {
+      "id": "designer-skill",
+      "name": "Designer Skill",
+      "description": "Migrierter Skill",
+      "entrypoint": "./library/designer-skill",
+      "dependencies": {
+        "python_packages": [],
+        "system_commands": []
+      },
+      "adapters": {
+        "claude": {
+          "invocation_style": "slash_command",
+          "command": "/designer"
+        },
+        "google": {
+          "invocation_style": "function_calling"
+        }
+      }
     }
   ]
 }
-
