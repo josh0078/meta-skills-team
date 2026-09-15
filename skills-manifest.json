@@ -252,8 +252,8 @@
     {
       "id": "designer-skill",
       "name": "Designer Skill",
-      "description": "Migrierter Skill",
-      "entrypoint": "./library/designer-skill",
+      "description": "UI/UX-Designer und Frontend-Entwickler mit einem Katalog von 18 visuellen Stilen (von 21st.dev). Generiert eine visuelle Picker-Seite mit Live-Demos jedes Stils zur interaktiven Auswahl im Browser (/designer).",
+      "entrypoint": "./library/designer-skill/SKILL.md",
       "dependencies": {
         "python_packages": [],
         "system_commands": []
@@ -262,6 +262,158 @@
         "claude": {
           "invocation_style": "slash_command",
           "command": "/designer"
+        },
+        "google": {
+          "invocation_style": "function_calling"
+        }
+      }
+    },
+    {
+      "id": "agent-skill-ask-deepseek",
+      "name": "Ask Deepseek",
+      "description": "Last resort for code questions that do not fit in the local context — offloads a large pile of code to DeepSeek's external API in one call. Use ONLY when the code needed to answer would blow up your own context, or when the user explicitly asks (/deepseek, frag deepseek, etc.).",
+      "entrypoint": "./library/ask-deepseek/SKILL.md",
+      "dependencies": {
+        "python_packages": [],
+        "system_commands": []
+      },
+      "adapters": {
+        "claude": {
+          "invocation_style": "slash_command",
+          "command": "/deepseek"
+        },
+        "google": {
+          "invocation_style": "function_calling"
+        }
+      }
+    },
+    {
+      "id": "agent-skill-brainstorming",
+      "name": "Brainstorming",
+      "description": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation.",
+      "entrypoint": "./library/brainstorming/SKILL.md",
+      "dependencies": {
+        "python_packages": [],
+        "system_commands": []
+      },
+      "adapters": {
+        "claude": {
+          "invocation_style": "slash_command",
+          "command": "/brainstorm"
+        },
+        "google": {
+          "invocation_style": "function_calling"
+        }
+      }
+    },
+    {
+      "id": "agent-skill-claude-md-improver",
+      "name": "Claude Md Improver",
+      "description": "Audit and improve CLAUDE.md files in repositories. Use when user asks to check, audit, update, improve, or fix CLAUDE.md files. Scans for all CLAUDE.md files, evaluates quality against templates, outputs quality report, then makes targeted updates.",
+      "entrypoint": "./library/claude-md-improver/SKILL.md",
+      "dependencies": {
+        "python_packages": [],
+        "system_commands": []
+      },
+      "adapters": {
+        "claude": {
+          "invocation_style": "slash_command",
+          "command": "/claude-md-improver"
+        },
+        "google": {
+          "invocation_style": "function_calling"
+        }
+      }
+    },
+    {
+      "id": "agent-skill-frontend-design",
+      "name": "Frontend Design",
+      "description": "Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications. Generates creative, polished code and UI design that avoids generic AI aesthetics.",
+      "entrypoint": "./library/frontend-design/SKILL.md",
+      "dependencies": {
+        "python_packages": [],
+        "system_commands": []
+      },
+      "adapters": {
+        "claude": {
+          "invocation_style": "slash_command",
+          "command": "/frontend-design"
+        },
+        "google": {
+          "invocation_style": "function_calling"
+        }
+      }
+    },
+    {
+      "id": "agent-skill-grill-me",
+      "name": "Grill Me",
+      "description": "Löchert dich gnadenlos mit Fragen zu einem Plan, einer Entscheidung oder Idee, bis ein gemeinsames Verständnis steht. Nutzen, wenn der User seinen Plan stresstesten will oder 'grill mich' sagt.",
+      "entrypoint": "./library/grill-me/SKILL.md",
+      "dependencies": {
+        "python_packages": [],
+        "system_commands": []
+      },
+      "adapters": {
+        "claude": {
+          "invocation_style": "slash_command",
+          "command": "/grill-me"
+        },
+        "google": {
+          "invocation_style": "function_calling"
+        }
+      }
+    },
+    {
+      "id": "agent-skill-obsidian-session",
+      "name": "Obsidian Session",
+      "description": "Dokumentiert Sessions strukturiert im gemeinsamen Obsidian Vault, ermöglicht Handoffs und Wiederaufnahme von Arbeitsständen (/session-save, /session-load).",
+      "entrypoint": "./library/obsidian-session/SKILL.md",
+      "dependencies": {
+        "python_packages": [],
+        "system_commands": []
+      },
+      "adapters": {
+        "claude": {
+          "invocation_style": "slash_command",
+          "command": "/session-save"
+        },
+        "google": {
+          "invocation_style": "function_calling"
+        }
+      }
+    },
+    {
+      "id": "agent-skill-prompt-builder",
+      "name": "Prompt Builder",
+      "description": "Interaktiver Assistent zum Erstellen von hochwertigen, strukturierten Prompts für KI-Modelle durch gezielte Klärungsfragen vorab (/prompt).",
+      "entrypoint": "./library/prompt-builder/SKILL.md",
+      "dependencies": {
+        "python_packages": [],
+        "system_commands": []
+      },
+      "adapters": {
+        "claude": {
+          "invocation_style": "slash_command",
+          "command": "/prompt"
+        },
+        "google": {
+          "invocation_style": "function_calling"
+        }
+      }
+    },
+    {
+      "id": "agent-skill-web-compliance-dach",
+      "name": "Web Compliance Dach",
+      "description": "Erstellt und prüft alle Rechtstexte für Webseiten im DACH-Raum: Impressum (§ 5 DDG), Datenschutzerklärung (DSGVO/TDDDG), Cookie-Consent-Banner und KI-Transparenzhinweise nach EU AI Act Art. 50.",
+      "entrypoint": "./library/web-compliance-dach/SKILL.md",
+      "dependencies": {
+        "python_packages": [],
+        "system_commands": []
+      },
+      "adapters": {
+        "claude": {
+          "invocation_style": "slash_command",
+          "command": "/compliance"
         },
         "google": {
           "invocation_style": "function_calling"
