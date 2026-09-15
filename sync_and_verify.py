@@ -5,8 +5,9 @@ import sys
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MANIFEST_PATH = os.path.join(BASE_DIR, "skills-manifest.json")
+LOG_PATH = os.path.join(BASE_DIR, "installation_log.json")
 
-def verify_skills():
+def verify_skills(pc_name):
     if not os.path.exists(MANIFEST_PATH):
         print(f"Fehler: {MANIFEST_PATH} nicht gefunden.")
         sys.exit(1)
@@ -14,11 +15,29 @@ def verify_skills():
     with open(MANIFEST_PATH, "r", encoding="utf-8") as f:
         manifest = json.load(f)
         
-    print("Starte Überprüfung der Skills...\n")
+    log_data = {}
+    if os.path.exists(LOG_PATH):
+        with open(LOG_PATH, "r", encoding="utf-8") as f:
+            log_data = json.load(f)
+            
+    if pc_name not in log_data:
+        log_data[pc_name] = []
+        
+    installed_skills = log_data[pc_name]
+        
+    print(f"Starte Überprüfung der Skills für PC: {pc_name}...\n")
     
     all_good = True
+    new_installations = False
+    
     for skill in manifest.get("skills", []):
-        print(f"Prüfe Skill: {skill.get('name')} ({skill.get('id')})")
+        skill_id = skill.get("id")
+        
+        if skill_id in installed_skills:
+            print(f"Skill '{skill.get('name')}' ist bereits auf '{pc_name}' installiert. (Übersprungen)")
+            continue
+            
+        print(f"Prüfe neuen Skill: {skill.get('name')}")
         
         # 1. Check entrypoint
         entrypoint_rel = skill.get("entrypoint", "")
@@ -26,6 +45,7 @@ def verify_skills():
         if not os.path.exists(entrypoint_abs):
             print(f"  [FEHLER] Entrypoint {entrypoint_rel} nicht gefunden!")
             all_good = False
+            continue
             
         # 2. Check dependencies
         deps = skill.get("dependencies", {})
@@ -40,17 +60,33 @@ def verify_skills():
             except subprocess.CalledProcessError:
                 print("  [FEHLER] Konnte Pakete nicht installieren.")
                 all_good = False
+                continue
         else:
             print("  [OK] Keine spezifischen Python-Abhängigkeiten.")
             
+        # Mark as installed
+        installed_skills.append(skill_id)
+        new_installations = True
         print("---")
         
+    if new_installations:
+        with open(LOG_PATH, "w", encoding="utf-8") as f:
+            json.dump(log_data, f, indent=2, ensure_ascii=False)
+        print("\nDas Installation-Log wurde aktualisiert. Lade Update auf GitHub hoch...")
+        try:
+            subprocess.check_call(["git", "add", "installation_log.json"], cwd=BASE_DIR)
+            subprocess.check_call(["git", "commit", "-m", f"Protokoll: {pc_name} hat neue Skills installiert"], cwd=BASE_DIR)
+            subprocess.check_call(["git", "push"], cwd=BASE_DIR)
+            print("Push erfolgreich.")
+        except Exception as e:
+            print(f"Warnung: Konnte das Log nicht auf GitHub pushen (möglicherweise wegen fehlender Berechtigung). Bitte manuell pushen.")
+            
     if all_good:
-        print("Ergebnis: Alle Skills sind einsatzbereit!")
+        print("\nErgebnis: Der PC ist auf dem neuesten Stand und alle Skills sind einsatzbereit!")
     else:
-        print("Ergebnis: Es gab Fehler bei der Einrichtung. Bitte prüfe die Logs.")
+        print("\nErgebnis: Es gab Fehler bei der Einrichtung einiger Skills.")
         sys.exit(1)
 
 if __name__ == "__main__":
-    verify_skills()
-
+    pc_name = sys.argv[1] if len(sys.argv) > 1 else "Unbekannter PC"
+    verify_skills(pc_name)
