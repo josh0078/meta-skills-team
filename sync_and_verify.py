@@ -3,11 +3,12 @@ import json
 import subprocess
 import sys
 
-MANIFEST_PATH = "skills-manifest.json"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MANIFEST_PATH = os.path.join(BASE_DIR, "skills-manifest.json")
 
 def verify_skills():
     if not os.path.exists(MANIFEST_PATH):
-        print("Fehler: skills-manifest.json nicht gefunden.")
+        print(f"Fehler: {MANIFEST_PATH} nicht gefunden.")
         sys.exit(1)
         
     with open(MANIFEST_PATH, "r", encoding="utf-8") as f:
@@ -20,9 +21,10 @@ def verify_skills():
         print(f"Prüfe Skill: {skill.get('name')} ({skill.get('id')})")
         
         # 1. Check entrypoint
-        entrypoint = skill.get("entrypoint")
-        if not os.path.exists(entrypoint):
-            print(f"  [FEHLER] Entrypoint {entrypoint} nicht gefunden!")
+        entrypoint_rel = skill.get("entrypoint", "")
+        entrypoint_abs = os.path.join(BASE_DIR, entrypoint_rel) if not os.path.isabs(entrypoint_rel) else entrypoint_rel
+        if not os.path.exists(entrypoint_abs):
+            print(f"  [FEHLER] Entrypoint {entrypoint_rel} nicht gefunden!")
             all_good = False
             
         # 2. Check dependencies
