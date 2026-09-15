@@ -16,5 +16,29 @@
     "designer-skill"
   ],
   "Joshua Mac mini": [],
-  "Mathis Mac": []
+  "Mathis Mac": [],
+  "Unbekannter PC": [
+    "agent-skill-ui-ux-pro-max",
+    "agent-skill-defuddle",
+    "agent-skill-ckm-design",
+    "agent-skill-ckm-brand",
+    "agent-skill-obsidian-markdown",
+    "agent-skill-ckm-slides",
+    "agent-skill-ckm-banner-design",
+    "agent-skill-find-skills",
+    "agent-skill-obsidian-bases",
+    "agent-skill-ckm-ui-styling",
+    "agent-skill-ckm-design-system",
+    "agent-skill-obsidian-cli",
+    "agent-skill-json-canvas",
+    "designer-skill",
+    "agent-skill-ask-deepseek",
+    "agent-skill-brainstorming",
+    "agent-skill-claude-md-improver",
+    "agent-skill-frontend-design",
+    "agent-skill-grill-me",
+    "agent-skill-obsidian-session",
+    "agent-skill-prompt-builder",
+    "agent-skill-web-compliance-dach"
+  ]
 }
