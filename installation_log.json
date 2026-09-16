@@ -13,7 +13,15 @@
     "agent-skill-ckm-design-system",
     "agent-skill-obsidian-cli",
     "agent-skill-json-canvas",
-    "designer-skill"
+    "designer-skill",
+    "agent-skill-ask-deepseek",
+    "agent-skill-brainstorming",
+    "agent-skill-claude-md-improver",
+    "agent-skill-frontend-design",
+    "agent-skill-grill-me",
+    "agent-skill-obsidian-session",
+    "agent-skill-prompt-builder",
+    "agent-skill-web-compliance-dach"
   ],
   "Joshua Mac mini": [],
   "Mathis Mac": [],
