@@ -81,6 +81,21 @@ def verify_skills(pc_name):
         except Exception as e:
             print(f"Warnung: Konnte das Log nicht auf GitHub pushen (möglicherweise wegen fehlender Berechtigung). Bitte manuell pushen.")
             
+    # === IDE-Integration ===
+    print("\nPrüfe IDE-Integrationen...")
+    antigravity_config = os.path.expanduser("~/.gemini/config")
+    if os.path.exists(antigravity_config):
+        target = os.path.join(antigravity_config, "skills")
+        src = os.path.join(BASE_DIR, "library")
+        if not os.path.exists(target) and not os.path.islink(target):
+            try:
+                os.symlink(src, target)
+                print("  [OK] Symlink für Antigravity IDE erstellt.")
+            except Exception as e:
+                print(f"  [WARNUNG] Konnte Symlink nicht erstellen: {e}")
+        else:
+            print("  [OK] Antigravity IDE ist bereits verknüpft.")
+
     if all_good:
         print("\nErgebnis: Der PC ist auf dem neuesten Stand und alle Skills sind einsatzbereit!")
     else:
