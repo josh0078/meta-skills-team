@@ -82,19 +82,29 @@ def verify_skills(pc_name):
             print(f"Warnung: Konnte das Log nicht auf GitHub pushen (möglicherweise wegen fehlender Berechtigung). Bitte manuell pushen.")
             
     # === IDE-Integration ===
-    print("\nPrüfe IDE-Integrationen...")
-    antigravity_config = os.path.expanduser("~/.gemini/config")
-    if os.path.exists(antigravity_config):
-        target = os.path.join(antigravity_config, "skills")
-        src = os.path.join(BASE_DIR, "library")
-        if not os.path.exists(target) and not os.path.islink(target):
-            try:
-                os.symlink(src, target)
-                print("  [OK] Symlink für Antigravity IDE erstellt.")
-            except Exception as e:
-                print(f"  [WARNUNG] Konnte Symlink nicht erstellen: {e}")
-        else:
-            print("  [OK] Antigravity IDE ist bereits verknüpft.")
+    print("\nPrüfe IDE-Integrationen (Verknüpfungen für verschiedene KIs)...")
+    
+    ide_paths = [
+        "~/.gemini/config",    # Antigravity
+        "~/.agents",           # Standard Agent / General
+        "~/.claude",           # Claude Desktop
+        "~/.cursor"            # Cursor IDE
+    ]
+    
+    for path_str in ide_paths:
+        base_ide_dir = os.path.expanduser(path_str)
+        if os.path.exists(base_ide_dir):
+            target = os.path.join(base_ide_dir, "skills")
+            src = os.path.join(BASE_DIR, "library")
+            
+            if not os.path.exists(target) and not os.path.islink(target):
+                try:
+                    os.symlink(src, target)
+                    print(f"  [OK] Symlink für {path_str}/skills erstellt.")
+                except Exception as e:
+                    print(f"  [WARNUNG] Konnte Symlink in {path_str} nicht erstellen: {e}")
+            else:
+                print(f"  [OK] {path_str}/skills ist bereits verknüpft oder existiert.")
 
     if all_good:
         print("\nErgebnis: Der PC ist auf dem neuesten Stand und alle Skills sind einsatzbereit!")
