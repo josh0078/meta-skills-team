@@ -6,8 +6,23 @@ import subprocess
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 SOURCE_AGENTS_SKILLS = os.path.expanduser("~/.agents/skills")
+PLUGIN_MARKETPLACES_DIR = os.path.expanduser("~/.claude/plugins/marketplaces")
 TARGET_LIBRARY = os.path.join(BASE_DIR, "library")
 MANIFEST_PATH = os.path.join(BASE_DIR, "skills-manifest.json")
+
+def find_plugin_skill_dirs():
+    found = []
+    if not os.path.exists(PLUGIN_MARKETPLACES_DIR):
+        return found
+    for marketplace in os.listdir(PLUGIN_MARKETPLACES_DIR):
+        skills_dir = os.path.join(PLUGIN_MARKETPLACES_DIR, marketplace, "skills")
+        if not os.path.isdir(skills_dir):
+            continue
+        for name in os.listdir(skills_dir):
+            src_path = os.path.join(skills_dir, name)
+            if os.path.isdir(src_path):
+                found.append((name, src_path))
+    return found
 
 def read_skill_meta(skill_path, default_name):
     candidates = ['SKILL.md', f'{default_name}.md', 'README.md', 'index.md']
@@ -51,6 +66,14 @@ def main():
                 dst_path = os.path.join(TARGET_LIBRARY, name)
                 if not os.path.exists(dst_path):
                     shutil.copytree(src_path, dst_path)
+
+    for name, src_path in find_plugin_skill_dirs():
+        skill_id = f"{name}"
+        if skill_id not in existing_ids:
+            print(f"-> Neuen Skill aus Plugin-Marketplace gefunden: {name}")
+            dst_path = os.path.join(TARGET_LIBRARY, name)
+            if not os.path.exists(dst_path):
+                shutil.copytree(src_path, dst_path)
 
     # 2. Durchsuche die Library selbst nach Ordnern, die noch nicht im Manifest stehen!
     # (Das fängt alle Skills ab, die direkt über die UI im Symlink gelandet sind)
