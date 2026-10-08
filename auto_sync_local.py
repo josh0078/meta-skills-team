@@ -45,30 +45,45 @@ def main():
             src_path = os.path.join(SOURCE_AGENTS_SKILLS, name)
             if not os.path.isdir(src_path): continue
                 
-            skill_id = f"agent-skill-{name}"
+            skill_id = f"{name}"
             if skill_id not in existing_ids:
-                print(f"-> Neuen Skill gefunden: {name}")
+                print(f"-> Neuen Skill aus ~/.agents gefunden: {name}")
                 dst_path = os.path.join(TARGET_LIBRARY, name)
                 if not os.path.exists(dst_path):
                     shutil.copytree(src_path, dst_path)
+
+    # 2. Durchsuche die Library selbst nach Ordnern, die noch nicht im Manifest stehen!
+    # (Das fängt alle Skills ab, die direkt über die UI im Symlink gelandet sind)
+    for name in os.listdir(TARGET_LIBRARY):
+        if name.startswith('.'): continue
+        dst_path = os.path.join(TARGET_LIBRARY, name)
+        if not os.path.isdir(dst_path): continue
+
+        # Prüfe ob der Skill im Manifest ist. Wir vergleichen die Entrypoints oder den Ordnernamen
+        # Um sicherzugehen, prüfen wir, ob es einen Eintrag gibt, dessen entrypoint diesen Ordner referenziert
+        folder_in_manifest = any(name in s.get("entrypoint", "") for s in manifest.get("skills", []))
+        
+        if not folder_in_manifest:
+            print(f"-> Unregistrierten Skill in Library gefunden: {name}")
+            skill_id = f"{name}"
+            
+            entrypoint = f"./library/{name}/SKILL.md"
+            if not os.path.exists(os.path.join(dst_path, "SKILL.md")):
+                entrypoint = f"./library/{name}"
                 
-                entrypoint = f"./library/{name}/SKILL.md"
-                if not os.path.exists(os.path.join(dst_path, "SKILL.md")):
-                    entrypoint = f"./library/{name}"
-                    
-                manifest["skills"].append({
-                    "id": skill_id,
-                    "name": name.replace("-", " ").title(),
-                    "description": read_skill_meta(src_path, name),
-                    "entrypoint": entrypoint,
-                    "dependencies": {"python_packages": [], "system_commands": []},
-                    "adapters": {
-                        "claude": {"invocation_style": "slash_command", "command": f"/{name}"},
-                        "google": {"invocation_style": "function_calling"}
-                    }
-                })
-                existing_ids.add(skill_id)
-                added_any = True
+            manifest["skills"].append({
+                "id": skill_id,
+                "name": name.replace("-", " ").title(),
+                "description": read_skill_meta(dst_path, name),
+                "entrypoint": entrypoint,
+                "dependencies": {"python_packages": [], "system_commands": []},
+                "adapters": {
+                    "claude": {"invocation_style": "slash_command", "command": f"/{name}"},
+                    "google": {"invocation_style": "function_calling"}
+                }
+            })
+            existing_ids.add(skill_id)
+            added_any = True
 
     if added_any:
         with open(MANIFEST_PATH, "w", encoding="utf-8") as f:
